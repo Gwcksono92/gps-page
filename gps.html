@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Get Location</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body onload="getLocation()">
+<script>
+  function getLocation() {
+    navigator.geolocation.getCurrentPosition(function(pos) {
+      const lat = pos.coords.latitude.toFixed(15);   // Presisi tinggi
+      const lon = pos.coords.longitude.toFixed(15);
+      const result = lat + "," + lon;
+      window.AppInventor.setWebViewString(result);
+    }, function(err) {
+      window.AppInventor.setWebViewString("Error: " + err.message);
+    }, {
+      enableHighAccuracy: true,
+      maximumAge: 0,
+      timeout: 10000
+    });
+  }
+</script>
+</body>
+</html>
