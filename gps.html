@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Live Location</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body onload="startTracking()">
+<script>
+  function startTracking() {
+    if (!navigator.geolocation) {
+      window.AppInventor.setWebViewString("Error: Geolocation not supported.");
+      return;
+    }
+
+    navigator.geolocation.watchPosition(
+      function(pos) {
+        const lat = String(pos.coords.latitude).substring(0, 10);
+        const lon = String(pos.coords.longitude).substring(0, 10);
+        const result = lat + "," + lon;
+        window.AppInventor.setWebViewString(result);
+      },
+      function(err) {
+        let message = "Unknown error";
+        if (err.code === 1) {
+          message = "User denied Geolocation";
+        } else if (err.code === 2) {
+          message = "Position unavailable";
+        } else if (err.code === 3) {
+          message = "Timeout getting location";
+        }
+        window.AppInventor.setWebViewString("Error: " + message);
+      },
+      {
+        enableHighAccuracy: true,
+        maximumAge: 0,
+        timeout: 10000
+      }
+    );
+  }
+</script>
+</body>
+</html>
