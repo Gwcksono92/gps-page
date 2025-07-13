@@ -72,6 +72,10 @@ function addData() {
   assetData.push(record);
   renderTable();
 
+  if (window.AppInventor) {
+    window.AppInventor.setWebViewString(JSON.stringify(assetData));
+  }
+
   document.getElementById('asset_number').value = '';
   document.getElementById('merk').value = '';
   document.getElementById('serial_number').value = '';
@@ -116,12 +120,20 @@ function editData(index) {
 
   assetData.splice(index, 1);
   renderTable();
+
+  if (window.AppInventor) {
+    window.AppInventor.setWebViewString(JSON.stringify(assetData));
+  }
 }
 
 function deleteData(index) {
   if (confirm('Yakin ingin menghapus data ini?')) {
     assetData.splice(index, 1);
     renderTable();
+
+    if (window.AppInventor) {
+      window.AppInventor.setWebViewString(JSON.stringify(assetData));
+    }
   }
 }
 
@@ -146,6 +158,10 @@ function importExcel(event) {
     const importedData = XLSX.utils.sheet_to_json(worksheet);
     assetData = assetData.concat(importedData);
     renderTable();
+
+    if (window.AppInventor) {
+      window.AppInventor.setWebViewString(JSON.stringify(assetData));
+    }
   };
   reader.readAsArrayBuffer(file);
 }
