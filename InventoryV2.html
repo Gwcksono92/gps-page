@@ -94,7 +94,10 @@ function renderTable() {
       <td>${item.location}</td>
       <td>${item.latitude}</td>
       <td>${item.longitude}</td>
-      <td><button onclick="editData(${index})">Edit</button></td>
+      <td>
+        <button onclick="editData(${index})">Edit</button>
+        <button onclick="deleteData(${index})">Delete</button>
+      </td>
     `;
     table.appendChild(row);
   });
@@ -113,6 +116,13 @@ function editData(index) {
 
   assetData.splice(index, 1);
   renderTable();
+}
+
+function deleteData(index) {
+  if (confirm('Yakin ingin menghapus data ini?')) {
+    assetData.splice(index, 1);
+    renderTable();
+  }
 }
 
 function downloadExcel() {
